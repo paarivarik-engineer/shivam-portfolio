@@ -21,7 +21,7 @@ export default function App() {
     phone: "+971 545 254 120 | +91 6393 881 986",
     github: "https://github.com/paarivarik-engineer",
     linkedin: "https://www.linkedin.com/in/databoi/",
-    photo: "/profile.png", // put your image as public/profile.png
+    photo: "public/profile.png", // put your image as public/profile.png
     resumePdf: "https://docs.google.com/document/d/1to2sOPUrUXTaFN_Rna2FqLPIxRwVReWp/edit?usp=sharing",
 
     highlights: [
