@@ -108,6 +108,16 @@ function Hero({profile}){
   const ref=useRef(null);
   const {scrollYProgress}=useScroll({target:ref,offset:["start end","start start"]});
   const y=useTransform(scrollYProgress,[0,1],[0,-60]);
+
+  const [isMd,setIsMd]=useState(false);
+  useEffect(()=>{
+    const mq = window.matchMedia('(min-width: 768px)');
+    const handler = () => setIsMd(mq.matches);
+    handler();
+    mq.addEventListener?.('change', handler);
+    return () => mq.removeEventListener?.('change', handler);
+  },[]);
+  
   return(
     <section id="home" ref={ref} className="relative overflow-hidden">
       <div className="mx-auto max-w-6xl px-4 md:px-8 pt-16 md:pt-24 pb-16">
@@ -123,13 +133,13 @@ function Hero({profile}){
               <a href="#projects" onClick={(e)=>{e.preventDefault();document.getElementById('projects')?.scrollIntoView({behavior:'smooth'});}} className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm">View Projects <ArrowUpRight size={16}/></a>
               <a href={profile.resumeUrl}  target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm"> <Download size={16}/> Download Resume</a>
             </div>
-            <div className="mt-6 flex items-center gap-4">
+            <div className="mt-6 flex items-center gap-4 order-2 md:order-1">
               <IconLink href={profile.socials.github}  target="_blank" rel="noopener noreferrer" icon={<Github size={18}/>} label="GitHub"/>
               <IconLink href={profile.socials.linkedin}  target="_blank" rel="noopener noreferrer" icon={<Linkedin size={18}/>} label="LinkedIn"/>
               <IconLink href={profile.socials.email}  target="_blank" rel="noopener noreferrer" icon={<Mail size={18}/>} label="Email"/>
             </div>
           </motion.div>
-          <motion.div style={{y}} className="relative">
+          <motion.div style={{ y: isMd ? y : 0 }} className="relative mt-8 md:mt-0">
             <div className="relative mx-auto w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-border">
               <img src={profile.avatarUrl} alt={`${profile.name} avatar`} className="w-full h-full object-cover"/>
             </div>
